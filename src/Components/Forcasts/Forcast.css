@@ -1,0 +1,162 @@
+/* Forcast.css – Hourly & Daily forecast component styles */
+
+.Hourly-Forcast {
+  margin-top: 16px;
+  padding: 20px 22px 16px;
+  color: #172b46;
+  background: rgba(237, 248, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(35, 103, 150, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.Forcast-title {
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #132840;
+}
+
+.forcast-cards {
+  display: grid;
+  grid-auto-columns: minmax(72px, 1fr);
+  grid-auto-flow: column;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.forcast-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.forcast-card {
+  min-width: 72px;
+  padding: 8px 8px 4px;
+  margin: 0;
+  color: #1a2d47;
+  border: 0;
+  border-right: 1px solid rgba(151, 185, 211, 0.24);
+  border-radius: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.forcast-card:last-child {
+  border-right: 0;
+}
+
+.forcast-card .card-title {
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #3d5468;
+  font-weight: 500;
+}
+
+.forcast-card img {
+  width: 36px;
+  height: 36px;
+  margin: 4px 0;
+}
+
+.forcast-card .temp {
+  margin: 4px 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #102340;
+}
+
+.rain-prediction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #7890a8;
+  font-size: 11px;
+}
+
+.rain-prediction svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.45;
+}
+
+.predict {
+  font-size: 11px;
+}
+
+/* ── 5-Day Forecast (second .Hourly-Forcast) ── */
+.Hourly-Forcast + .Hourly-Forcast .forcast-cards {
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
+  grid-auto-columns: auto;
+  grid-auto-flow: row;
+  gap: 14px;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card {
+  min-width: 0;
+  padding: 14px 10px 10px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(185, 210, 230, 0.4);
+  border-radius: 12px;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card .card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a3350;
+  margin-bottom: 2px;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card span {
+  color: #698097;
+  font-size: 11px;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card img {
+  width: 48px;
+  height: 48px;
+  margin: 8px 0 4px;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .temp {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.max {
+  color: #142946 !important;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.min {
+  color: #7a8fa5 !important;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.description {
+  color: #5a7088 !important;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .Hourly-Forcast {
+    padding: 16px 14px 12px;
+  }
+
+  .Hourly-Forcast + .Hourly-Forcast .forcast-cards {
+    grid-template-columns: repeat(5, 115px);
+    overflow-x: auto;
+  }
+}

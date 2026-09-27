@@ -1,0 +1,75 @@
+/* App.css – Overrides kept minimal since index.css handles the design system */
+
+/* Card-top layout */
+.card-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.card-top button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-block;
+  height: fit-content;
+}
+
+/* Card-middle layout */
+.card-middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.current-temp,
+.card-middle > div,
+.weather-metrics {
+  flex-basis: 33.33%;
+}
+
+/* Weather Condition (Middle Item) */
+.middle > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Metrics List Section */
+.weather-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card-bottom */
+.card-bottom {
+  display: flex;
+  align-items: center;
+}
+.card-bottom p {
+  padding-right: 10px;
+}
+.card-bottom button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 33px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Fav button states */
+.fav-bg,
+.fav-border {
+  fill: rgba(255, 255, 255, 0.38);
+  stroke: transparent;
+}
