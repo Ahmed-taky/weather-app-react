@@ -10,7 +10,7 @@ export default function weatherCardMatrix(data) {
       id: "wind",
       label: "Wind",
       value: `${data?.windSpeed ?? "N/A"} km/h`,
-      badge: data?.windDirection ?? "N/A",
+      badge: data?.wind_dir ?? "N/A",
       iconName: "wind",
     },
     {

@@ -18,7 +18,9 @@ export default function ResultRow({ result, setCurrentCity }) {
       }}
     >
       <PinIcon />
-      <p className="search-city-name">{result.name}</p>
+      <p className="search-city-name">
+        {result.name + " , " + result.region + " , " + result.country}
+      </p>
       <div className="search-city-weather">
         <WeatherIcon name="clouds" size={24} title="clouds" />
         <p>{result.description ?? 30}°C</p>

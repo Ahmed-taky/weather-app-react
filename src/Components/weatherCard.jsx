@@ -4,17 +4,19 @@ import { FavStarIcon, RefreshIcon } from "./icons/UiIcons";
 
 export default function WeatherCard({
   Data: {
-    current,
+    currentLocation,
     date,
     temp,
     feels,
     description,
+    icon = "clouds",
     humidity,
     wind,
     clouds,
     pressure,
     visibility,
     lastUpdate,
+    wind_dir,
   },
   setFavouritesList,
   isFav,
@@ -26,13 +28,14 @@ export default function WeatherCard({
     clouds,
     pressure,
     visibility,
+    wind_dir,
   });
   console.log("vds", isCurrentSet);
   return (
     <div className="weather-card">
       <div className="card-top">
         <div className="location-details">
-          <h2 className="current-location">{current}</h2>
+          <h2 className="current-location">{currentLocation}</h2>
           <p className="current-date">{date}</p>
         </div>
 
@@ -60,7 +63,7 @@ export default function WeatherCard({
 
         <div className="condition-column">
           <WeatherIcon
-            name="clouds"
+            name={icon}
             size={140}
             className="weather-illustration"
             title={description}

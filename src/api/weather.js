@@ -1,4 +1,4 @@
-export default async function fetchSearch(query) {
+export default async function fetchWeather(query) {
   const apiKey = import.meta.env.VITE_API_KEY;
 
   if (!apiKey) {
@@ -6,7 +6,7 @@ export default async function fetchSearch(query) {
   }
 
   const result = await fetch(
-    `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${encodeURIComponent(query)}`,
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=5`,
   );
 
   if (!result.ok) {

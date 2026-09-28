@@ -14,7 +14,6 @@ export default function Search({ setCurrentCity }) {
 
   useEffect(() => {
     if (!query) {
-      setSearchResults(null);
       return;
     }
 
@@ -23,6 +22,7 @@ export default function Search({ setCurrentCity }) {
     const loadSearch = async () => {
       try {
         const data = await fetchSearch(query);
+        console.log(data);
         if (isMounted) {
           setSearchResults(data);
         }
@@ -37,7 +37,7 @@ export default function Search({ setCurrentCity }) {
     loadSearch();
 
     return () => {
-      isMounted = false;
+      // isMounted = false;
     };
   }, [query]);
 
@@ -49,9 +49,9 @@ export default function Search({ setCurrentCity }) {
         className="search-input"
         value={query}
         onChange={(target) => {
-          const value = target.target.value.trim();
+          const value = target.target.value;
           setQuery(value);
-          handleSearch(value, setSearchResults);
+          handleSearch(value.trim(), setSearchResults);
         }}
       />
       <DropDown

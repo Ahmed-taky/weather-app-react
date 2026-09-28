@@ -278,19 +278,56 @@ header {
 .Hourly-Forcast {
   background: rgba(237, 248, 255, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.78);
-  box-shadow: 0 12px 32px rgba(35, 103, 150, 0.12);
+  box-shadow:
+    0 1px 2px rgba(16, 51, 80, 0.08),
+    0 12px 32px rgba(35, 103, 150, 0.16),
+    0 24px 64px rgba(35, 103, 150, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
 /* ── Weather Card ── */
 .weather-card {
+  position: relative;
   min-height: 260px;
   padding: 26px 30px 16px !important;
   border-radius: 16px !important;
   display: flex;
   flex-direction: column;
   gap: 18px !important;
+  box-shadow:
+    0 1px 2px rgba(16, 51, 80, 0.1),
+    0 16px 40px rgba(35, 103, 150, 0.2),
+    0 32px 80px rgba(35, 103, 150, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(16, 51, 80, 0.1),
+    0 20px 48px rgba(35, 103, 150, 0.24),
+    0 40px 96px rgba(35, 103, 150, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Soft top gloss for extra glass depth */
+.weather-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 72px;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
 }
 
 .card-top {
@@ -443,7 +480,7 @@ header {
 .metric-icon {
   width: 24px;
   height: 24px;
-  opacity: 0.7;
+  opacity: 0.95;
 }
 
 .metric-value-group {
@@ -638,6 +675,74 @@ header {
   margin-bottom: 6px;
   font-size: 12px;
   font-weight: 500;
+}
+
+/* ── Weather icon glow (alive feel, matched to palette) ── */
+.weather-illustration,
+.forcast-card svg {
+  filter: drop-shadow(0 6px 14px rgba(2, 132, 199, 0.28));
+}
+
+.weather-illustration[data-icon="day-clear"],
+.weather-illustration[data-icon="sunrise"],
+.forcast-card svg[data-icon="day-clear"] {
+  filter: drop-shadow(0 0 14px rgba(255, 179, 0, 0.55));
+}
+
+.weather-illustration[data-icon="day-partlyCloudy"],
+.weather-illustration[data-icon="sunset"],
+.weather-illustration[data-icon="day-thunder"],
+.weather-illustration[data-icon="night-thunder"],
+.forcast-card svg[data-icon="day-thunder"],
+.forcast-card svg[data-icon="night-thunder"] {
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.5));
+}
+
+.weather-illustration[data-icon="night-clear"],
+.weather-illustration[data-icon="night-partlyCloudy"],
+.forcast-card svg[data-icon="night-clear"] {
+  filter: drop-shadow(0 0 12px rgba(255, 224, 138, 0.55));
+}
+
+/* ── Card depth: text + element shadows ── */
+.location-details h2 {
+  text-shadow: 0 1px 2px rgba(16, 51, 80, 0.18);
+}
+
+.temp-value {
+  text-shadow:
+    0 2px 4px rgba(10, 40, 88, 0.18),
+    0 12px 32px rgba(35, 103, 150, 0.22);
+}
+
+.condition-text {
+  text-shadow: 0 1px 2px rgba(26, 51, 80, 0.16);
+}
+
+.metric-item {
+  text-shadow: 0 1px 1px rgba(21, 41, 66, 0.08);
+}
+
+.fav-btn {
+  filter: drop-shadow(0 2px 6px rgba(35, 103, 150, 0.25));
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card {
+  box-shadow:
+    0 1px 2px rgba(16, 51, 80, 0.08),
+    0 8px 20px rgba(35, 103, 150, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.Hourly-Forcast + .Hourly-Forcast .forcast-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(16, 51, 80, 0.1),
+    0 12px 28px rgba(35, 103, 150, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* ── Responsive ── */
