@@ -1,4 +1,5 @@
-import "./Forcast.css";
+import WeatherIcon from "../icons/WeatherIcon";
+import { DropIcon } from "../icons/UiIcons";
 export default function ForecastHours({ Hours }) {
   return (
     <div className="Hourly-Forcast">
@@ -8,21 +9,10 @@ export default function ForecastHours({ Hours }) {
           return (
             <div className="forcast-card" key={index}>
               <p className="card-title">{hour.time}</p>
-              <img src={hour.icon} alt="" />
+              <WeatherIcon name={hour.icon} size={36} title={hour.time} />
               <p className="temp">{hour.temp}</p>
               <div className="rain-prediction">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 2.69L17.66 8.35C20.78 11.47 20.78 16.53 17.66 19.65C14.54 22.77 9.48 22.77 6.36 19.65C3.24 16.53 3.24 11.47 6.36 8.35L12 2.69Z"
-                    fill="#3B82F6"
-                  />
-                </svg>
+                <DropIcon size={12} />
 
                 <p className="predict">{hour.predict}</p>
               </div>

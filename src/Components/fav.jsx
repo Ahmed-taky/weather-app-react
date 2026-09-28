@@ -1,15 +1,13 @@
-export default function Fav({ cities }) {
+export default function Fav({ cities, handleClick }) {
   return (
     <div className="fav-container">
-      {cities.map((city) => (
+      {cities.map((city, index) => (
         <div
-          key={city.id}
+          key={index}
           className="fav-item"
           value={`${city.lon},${city.lat}`}
           onClick={() => {
-            console.log(
-              `Selected city: ${city.name}, Lat: ${city.lat}, Lon: ${city.lon}`,
-            );
+            handleClick(city);
           }}
           style={{
             cursor: "pointer",

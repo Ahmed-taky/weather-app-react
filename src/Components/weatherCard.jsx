@@ -1,22 +1,25 @@
-import { useState } from "react";
-import icon from "../assets/icons/clouds.svg";
-import "./weatherCard.css";
 import MatricesInfo from "../utils/formater";
+import WeatherIcon from "./icons/WeatherIcon";
+import { FavStarIcon, RefreshIcon } from "./icons/UiIcons";
 
 export default function WeatherCard({
-  current = "Cairo, Egypt",
-  date = "Tuesday, May 20, 2025 10:30 AM",
-  temp = 28,
-  feels = 30,
-  description = "Cloudy",
-  humidity = 45,
-  wind = 18,
-  clouds = 25,
-  pressure = 1012,
-  visibility = 10,
-  lastUpdate = "30 Minutes",
+  Data: {
+    current,
+    date,
+    temp,
+    feels,
+    description,
+    humidity,
+    wind,
+    clouds,
+    pressure,
+    visibility,
+    lastUpdate,
+  },
+  setFavouritesList,
+  isFav,
+  isCurrentSet,
 }) {
-  const [isFav, setIsFav] = useState(false);
   const metrics = MatricesInfo({
     humidity,
     windSpeed: wind,
@@ -24,7 +27,7 @@ export default function WeatherCard({
     pressure,
     visibility,
   });
-
+  console.log("vds", isCurrentSet);
   return (
     <div className="weather-card">
       <div className="card-top">
@@ -34,24 +37,15 @@ export default function WeatherCard({
         </div>
 
         <button
+          disabled={!isCurrentSet}
           className={`fav-btn ${isFav ? "active" : ""}`}
-          onClick={() => setIsFav((prev) => !prev)}
+          onClick={() => {
+            console.log(isCurrentSet);
+            if (Math.abs(isCurrentSet)) setFavouritesList();
+          }}
           aria-label="Toggle Favorite"
         >
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="20" cy="20" r="20" className="fav-bg" />
-            <circle cx="20" cy="20" r="19.5" className="fav-border" />
-            <path
-              d="M20 10L22.9389 15.9549L29.5106 16.9098L24.7553 21.5451L25.8779 28.0902L20 25L14.1221 28.0902L15.2447 21.5451L10.4894 16.9098L17.0611 15.9549L20 10Z"
-              fill={isFav ? "#FBBF24" : "rgba(255, 255, 255, 0.4)"}
-            />
-          </svg>
+          <FavStarIcon active={isFav} />
         </button>
       </div>
 
@@ -65,7 +59,12 @@ export default function WeatherCard({
         </div>
 
         <div className="condition-column">
-          <img src={icon} alt={description} className="weather-illustration" />
+          <WeatherIcon
+            name="clouds"
+            size={140}
+            className="weather-illustration"
+            title={description}
+          />
           <p className="condition-text">{description}</p>
         </div>
 
@@ -73,7 +72,12 @@ export default function WeatherCard({
           {metrics.map((item) => (
             <div key={item.id} className="metric-item">
               <div className="metric-label">
-                <img src={item.icon} alt={item.label} className="metric-icon" />
+                <WeatherIcon
+                  name={item.iconName}
+                  size={24}
+                  className="metric-icon"
+                  title={item.label}
+                />
                 <span>{item.label}</span>
               </div>
 
@@ -89,30 +93,8 @@ export default function WeatherCard({
       </div>
       <div className="card-bottom">
         <p> Last Update At {lastUpdate}</p>
-        <button>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20 11A8.1 8.1 0 0 0 5.3 6.3L3 9M3 9V4M3 9H8"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            <path
-              d="M4 13A8.1 8.1 0 0 0 18.7 17.7L21 15M21 15V20M21 15H16"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <button aria-label="Refresh">
+          <RefreshIcon />
         </button>
       </div>
     </div>
