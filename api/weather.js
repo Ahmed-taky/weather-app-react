@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(q)}&days=3`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(q)}&days=3&aqi=yes&alerts=yes`;
     const upstream = await fetch(url);
     const data = await upstream.json();
 

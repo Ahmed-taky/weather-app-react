@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import fetchWeather from "./api/weather";
 import getWeatherIcon from "./utils/getWeatherIcon";
 import Astro from "./Components/Astro";
+import AirQuality from "./Components/AirQuality";
+import Footer from "./Components/Footer";
 function formatHourLabel(timeStr) {
   const d = new Date(timeStr.replace(" ", "T"));
   if (Number.isNaN(d.getTime())) return timeStr;
@@ -116,7 +118,6 @@ function App() {
   });
   const [unit, setUnit] = useState(() => {
     const data = localStorage.getItem("unit");
-    console.log(data);
     if (data) return data;
     return "C";
   });
@@ -127,6 +128,16 @@ function App() {
     tz_id: "Africa/Cairo",
   });
 
+  const [airQuality, setAirQuality] = useState({
+    co: 176.0,
+    no2: 29.0,
+    o3: 36.0,
+    so2: 2.0,
+    pm2_5: 7.0,
+    pm10: 16.6,
+    "us-epa-index": 1,
+    "gb-defra-index": 1,
+  });
   const [state, setstate] = useState("idle");
   const [theme, setTheme] = useState(() => {
     let data = localStorage.getItem("theme") ?? "light";
@@ -191,10 +202,10 @@ function App() {
                 minute: "2-digit",
               },
             ),
-            temp_c: data.current.temp_c,
-            feels_c: data.current.feelslike_c,
-            temp_f: data.current.temp_f,
-            feels_f: data.current.feelslike_f,
+            temp_c: Math.round(data.current.temp_c),
+            feels_c: Math.round(data.current.feelslike_c),
+            temp_f: Math.round(data.current.temp_f),
+            feels_f: Math.round(data.current.feelslike_f),
             description: data.current.condition.text,
             icon: getWeatherIcon(
               data.current.condition.code,
@@ -219,6 +230,8 @@ function App() {
               tz_id: data.location.tz_id,
               currentTime: data.location.localtime_epoch * 1000,
             });
+          if (data?.current?.air_quality)
+            setAirQuality({ ...data.current.air_quality });
           setstate("idle");
         }
       } catch (error) {
@@ -246,7 +259,6 @@ function App() {
             if (state !== "idle") return;
             let newValue = unit === "C" ? "F" : "C";
             localStorage.setItem("unit", newValue);
-            console.log(newValue, unit);
             return newValue;
           });
         }}
@@ -287,8 +299,12 @@ function App() {
         />
         <ForecastHourly Hours={hours} unit={unit} />
         <ForecastDaily Days={days} unit={unit} />
-        <Astro data={AstroInfo} />
+        <div className="bottom-row">
+          <AirQuality data={airQuality} />
+          <Astro data={AstroInfo} />
+        </div>
       </main>
+      <Footer />
     </>
   );
 }

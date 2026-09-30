@@ -1,41 +1,35 @@
 import { useEffect, useState } from "react";
 import DropDown from "./searchResults";
 import fetchSearch from "../../api/search";
+import { SearchIcon } from "../icons/UiIcons";
 
 export default function Search({ setCurrentCity, unit }) {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
 
   useEffect(() => {
-    if (!query) {
+    if (!query.trim()) {
       return;
     }
 
-    let isMounted = true;
-
-    const loadSearch = async () => {
+    const timeout = setTimeout(async () => {
       try {
         const data = await fetchSearch(query);
-        if (isMounted) {
-          setSearchResults(data);
-        }
+        setSearchResults(data);
       } catch (error) {
         console.error("Search failed:", error);
-        if (isMounted) {
-          setSearchResults([]);
-        }
+        setSearchResults([]);
       }
-    };
-
-    loadSearch();
+    }, 300);
 
     return () => {
-      isMounted = false;
+      clearTimeout(timeout);
     };
   }, [query]);
 
   return (
     <div className="search-container">
+      <SearchIcon />
       <input
         type="text"
         placeholder="Enter city name"
@@ -59,15 +53,3 @@ export default function Search({ setCurrentCity, unit }) {
     </div>
   );
 }
-// mostly it will be hook
-// function debounce(func, wait) {
-//   let timeout;
-//   return function executedFunction(...args) {
-//     const later = () => {
-//       clearTimeout(timeout);
-//       func(...args);
-//     };
-//     clearTimeout(timeout);
-//     timeout = setTimeout(later, wait);
-//   };
-// }

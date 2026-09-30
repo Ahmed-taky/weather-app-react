@@ -3,8 +3,9 @@ export default function SearchResults({
   options,
   handleResultSelection,
   unit,
+  query,
 }) {
-  if (options === "" || options === null) return;
+  if (options === "" || options === null || query.trim() === "") return;
   return (
     <div className="dropdown">
       {options.map((option) => (

@@ -5,7 +5,7 @@ export default function Header({ toggleUnit, toggleTheme, theme, unit }) {
     <header>
       <div className="logo">
         <LogoIcon />
-        <span>Vanilla Weather App</span>
+        <span>Weather App</span>
       </div>
       <div className="header-buttons">
         <button className="unit-toggle btn" onClick={toggleUnit}>
