@@ -1,13 +1,14 @@
 import MatricesInfo from "../utils/formater";
 import WeatherIcon from "./icons/WeatherIcon";
-import { FavStarIcon, RefreshIcon } from "./icons/UiIcons";
+import { ErrorIcon, FavStarIcon, RefreshIcon } from "./icons/UiIcons";
 
 export default function WeatherCard({
   Data: {
     currentLocation,
     date,
-    temp,
-    feels,
+    temp_c,
+    feels_c,
+    feels_f,
     description,
     icon = "clouds",
     humidity,
@@ -17,10 +18,15 @@ export default function WeatherCard({
     visibility,
     lastUpdate,
     wind_dir,
+    temp_f,
   },
   setFavouritesList,
   isFav,
   isCurrentSet,
+  unit,
+  refresh,
+  status,
+  retry,
 }) {
   const metrics = MatricesInfo({
     humidity,
@@ -30,7 +36,6 @@ export default function WeatherCard({
     visibility,
     wind_dir,
   });
-  console.log("vds", isCurrentSet);
   return (
     <div className="weather-card">
       <div className="card-top">
@@ -43,8 +48,7 @@ export default function WeatherCard({
           disabled={!isCurrentSet}
           className={`fav-btn ${isFav ? "active" : ""}`}
           onClick={() => {
-            console.log(isCurrentSet);
-            if (Math.abs(isCurrentSet)) setFavouritesList();
+            if (isCurrentSet) setFavouritesList();
           }}
           aria-label="Toggle Favorite"
         >
@@ -55,22 +59,37 @@ export default function WeatherCard({
       <div className="card-middle">
         <div className="temp-column">
           <div className="temp-value">
-            {temp}
-            <span className="unit">°C</span>
+            {unit === "C" ? temp_c : temp_f}
+            <span className="unit">°{unit === "C" ? "C" : "F"}</span>
           </div>
-          <p className="feels-like">Feels like {feels}°C</p>
+          <p className="feels-like">
+            Feels like {(unit === "C" ? feels_c : feels_f) + " °" + unit}
+          </p>
         </div>
-
-        <div className="condition-column">
-          <WeatherIcon
-            name={icon}
-            size={140}
-            className="weather-illustration"
-            title={description}
-          />
-          <p className="condition-text">{description}</p>
-        </div>
-
+        {status === "error" ? (
+          <div className="state-box">
+            <ErrorIcon className="state-icon" />
+            <p className="state-title">Failed to load weather data</p>
+            <p className="state-text">
+              Failed to load weather data bad internet
+            </p>
+            <button className="btn-retry" onClick={retry}>
+              <RefreshIcon /> Try Again
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="condition-column">
+              <WeatherIcon
+                name={icon}
+                size={140}
+                className="weather-illustration"
+                title={description}
+              />
+              <p className="condition-text">{description}</p>
+            </div>
+          </>
+        )}
         <div className="metrics-column">
           {metrics.map((item) => (
             <div key={item.id} className="metric-item">
@@ -96,7 +115,7 @@ export default function WeatherCard({
       </div>
       <div className="card-bottom">
         <p> Last Update At {lastUpdate}</p>
-        <button aria-label="Refresh">
+        <button aria-label="Refresh" onClick={refresh}>
           <RefreshIcon />
         </button>
       </div>

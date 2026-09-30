@@ -1,6 +1,6 @@
 import WeatherIcon from "../icons/WeatherIcon";
 import { DropIcon } from "../icons/UiIcons";
-export default function ForecastHours({ Hours }) {
+export default function ForecastHours({ Hours, unit }) {
   return (
     <div className="Hourly-Forcast">
       <p className="Forcast-title">Today - Hourly Forecast</p>
@@ -10,7 +10,7 @@ export default function ForecastHours({ Hours }) {
             <div className="forcast-card" key={index}>
               <p className="card-title">{hour.time}</p>
               <WeatherIcon name={hour.icon} size={36} title={hour.time} />
-              <p className="temp">{hour.temp}</p>
+              <p className="temp">{unit === "C" ? hour.temp_c : hour.temp_f}</p>
               <div className="rain-prediction">
                 <DropIcon size={12} />
 

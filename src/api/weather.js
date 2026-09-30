@@ -1,17 +1,7 @@
 export default async function fetchWeather(query) {
-  const apiKey = import.meta.env.VITE_API_KEY;
-
-  if (!apiKey) {
-    throw new Error("Missing VITE_API_KEY environment variable");
-  }
-
-  const result = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=5`,
-  );
-
-  if (!result.ok) {
-    throw new Error("Failed to fetch search results");
-  }
-
-  return result.json();
+  const res = await fetch(`/api/weather?q=${encodeURIComponent(query)}`);
+  const data = await res.json();
+  if (!res.ok)
+    throw Object.assign(new Error(data.message), { status: res.status });
+  return data;
 }

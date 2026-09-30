@@ -1,10 +1,9 @@
 export default function Fav({ cities, handleClick }) {
   return (
     <div className="fav-container">
-      {console.log(cities)}
       {cities.map((city) => (
         <div
-          key={city.id}
+          key={`${city.name + city.lon + city.lat}`}
           className="fav-item"
           value={`${city.lon},${city.lat}`}
           onClick={() => {

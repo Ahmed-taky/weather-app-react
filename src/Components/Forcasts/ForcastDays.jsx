@@ -1,9 +1,9 @@
 import WeatherIcon from "../icons/WeatherIcon";
 import { DropIcon } from "../icons/UiIcons";
-export default function ForecastDays({ Days = [] }) {
+export default function ForecastDays({ Days = [], unit }) {
   return (
     <div className="Hourly-Forcast">
-      <p className="Forcast-title"> 5-Day Forecast </p>
+      <p className="Forcast-title"> 3-Day Forecast </p>
       <div className="forcast-cards">
         {Days.map((day, index) => {
           return (
@@ -17,8 +17,12 @@ export default function ForecastDays({ Days = [] }) {
                 className="day-weather"
               />
               <p className="temp">
-                <span className="max">{day.tempMax}</span>
-                <span className="min">{day.tempMin}</span>
+                <span className="max">
+                  {unit === "C" ? day.tempMax_c : day.tempMax_f}
+                </span>
+                <span className="min">
+                  {unit === "C" ? day.tempMin_c : day.tempMin_f}
+                </span>
               </p>
               <p className="description">{day.description}</p>
               <div className="rain-prediction">

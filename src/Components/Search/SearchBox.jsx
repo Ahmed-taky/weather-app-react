@@ -22,7 +22,6 @@ export default function Search({ setCurrentCity }) {
     const loadSearch = async () => {
       try {
         const data = await fetchSearch(query);
-        console.log(data);
         if (isMounted) {
           setSearchResults(data);
         }
@@ -57,7 +56,11 @@ export default function Search({ setCurrentCity }) {
       <DropDown
         options={searchResults}
         query={query}
-        setCurrentCity={setCurrentCity}
+        handleResultSelection={(data) => {
+          setCurrentCity({ ...data });
+          setSearchResults(null);
+          setQuery("");
+        }}
       />
     </div>
   );

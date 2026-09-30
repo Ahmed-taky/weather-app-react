@@ -1,20 +1,16 @@
 import WeatherIcon from "../icons/WeatherIcon";
 import { PinIcon } from "../icons/UiIcons";
-export default function ResultRow({ result, setCurrentCity }) {
+export default function ResultRow({ result, handleResultSelection }) {
   return (
-    <div
+    <button
       className="result-row"
       onClick={() => {
-        setCurrentCity({
+        handleResultSelection({
           name: result.name,
           lat: result.lat,
           lon: result.lon,
           fetchIn: new Date(),
         });
-        console.log(
-          `Selected city: ${result.name}, Lat: ${result.lat}, Lon: ${result.lon}`,
-        );
-        //delete the query field
       }}
     >
       <PinIcon />
@@ -25,6 +21,6 @@ export default function ResultRow({ result, setCurrentCity }) {
         <WeatherIcon name="clouds" size={24} title="clouds" />
         <p>{result.description ?? 30}°C</p>
       </div>
-    </div>
+    </button>
   );
 }

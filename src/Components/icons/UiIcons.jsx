@@ -1,4 +1,7 @@
+import { useId } from "react";
+
 export function LogoIcon({ size = 24, className }) {
+  const id = `logo${useId().replace(/:/g, "")}`;
   return (
     <svg
       width={size}
@@ -10,9 +13,15 @@ export function LogoIcon({ size = 24, className }) {
       role="img"
       aria-label="logo"
     >
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#8EC5FF" />
+          <stop offset="1" stopColor="#3B82F6" />
+        </linearGradient>
+      </defs>
       <path
         d="M19.35 10.04C18.67 6.59 15.64 4 12 4C9.11 4 6.6 5.64 5.35 8.04C2.34 8.36 0 10.91 0 14C0 17.31 2.69 20 6 20H19C21.76 20 24 17.76 24 15C24 12.36 21.95 10.22 19.35 10.04Z"
-        fill="#5ba3e6"
+        fill={`url(#${id})`}
       />
     </svg>
   );
@@ -59,6 +68,7 @@ export function MoonIcon({ size = 18, className }) {
   );
 }
 
+/* Idle color comes from --fav-idle so it stays readable in dark mode */
 export function FavStarIcon({ size = 40, active = false, className }) {
   return (
     <svg
@@ -75,7 +85,7 @@ export function FavStarIcon({ size = 40, active = false, className }) {
       <circle cx="20" cy="20" r="19.5" className="fav-border" />
       <path
         d="M20 10L22.9389 15.9549L29.5106 16.9098L24.7553 21.5451L25.8779 28.0902L20 25L14.1221 28.0902L15.2447 21.5451L10.4894 16.9098L17.0611 15.9549L20 10Z"
-        fill={active ? "#FBBF24" : "rgba(185, 210, 230, 0.4)"}
+        style={{ fill: active ? "#FBBF24" : "var(--fav-idle, #5A6172)" }}
       />
     </svg>
   );
@@ -111,7 +121,7 @@ export function RefreshIcon({ size = 24, className }) {
   );
 }
 
-export function DropIcon({ size = 24, color = "#3B82F6", className }) {
+export function DropIcon({ size = 24, color = "#5DA9F0", className }) {
   return (
     <svg
       width={size}
@@ -148,6 +158,30 @@ export function PinIcon({ size = 20, className }) {
         fill="#3B82F6"
       />
       <circle cx="12" cy="9" r="3" fill="white" />
+    </svg>
+  );
+}
+
+export function ErrorIcon({ size = 40, className }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role="img"
+      aria-label="error"
+    >
+      <circle cx="20" cy="20" r="20" fill="currentColor" />
+      <path
+        d="M20 11V22"
+        stroke="#fff"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <circle cx="20" cy="29" r="2.2" fill="#fff" />
     </svg>
   );
 }
