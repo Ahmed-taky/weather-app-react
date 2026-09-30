@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import DropDown from "./searchResults";
 import fetchSearch from "../../api/search";
 
-const results = [
-  { id: 1, name: "New York", lat: 40.7128, lon: -74.006 },
-  { id: 2, name: "Los Angeles", lat: 34.0522, lon: -118.2437 },
-  { id: 3, name: "Chicago", lat: 41.8781, lon: -87.6298 },
-];
-
-export default function Search({ setCurrentCity }) {
+export default function Search({ setCurrentCity, unit }) {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
 
@@ -36,7 +30,7 @@ export default function Search({ setCurrentCity }) {
     loadSearch();
 
     return () => {
-      // isMounted = false;
+      isMounted = false;
     };
   }, [query]);
 
@@ -50,10 +44,10 @@ export default function Search({ setCurrentCity }) {
         onChange={(target) => {
           const value = target.target.value;
           setQuery(value);
-          handleSearch(value.trim(), setSearchResults);
         }}
       />
       <DropDown
+        unit={unit}
         options={searchResults}
         query={query}
         handleResultSelection={(data) => {
@@ -77,11 +71,3 @@ export default function Search({ setCurrentCity }) {
 //     timeout = setTimeout(later, wait);
 //   };
 // }
-
-function handleSearch(query, setSearchResults) {
-  if (query === "") {
-    setSearchResults(null);
-    return null;
-  }
-  setSearchResults(results.filter((e) => e.name.startsWith(query)));
-}

@@ -262,7 +262,7 @@ function App() {
       <main
         className={`app-container ${state === "loading" || state === "error" ? `is-${state}` : ""}`}
       >
-        <Search setCurrentCity={setCurrentCity} />
+        <Search setCurrentCity={setCurrentCity} unit={unit} />
         <Fav cities={favouritesList} handleClick={handleFavoriteSelect} />
         <WeatherCard
           status={state}
