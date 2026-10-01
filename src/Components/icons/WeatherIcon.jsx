@@ -131,6 +131,7 @@ function Moon({ f, cx, cy, r }) {
     <g>
       <circle cx={cx} cy={cy} r={r * 1.45} fill="#9DB4FF" opacity="0.09" />
       <path d={path} fill={f("moon")} />
+      transform={`translate(0 ${2 * cy}) scale(1 -1)`}
     </g>
   );
 }
@@ -231,7 +232,7 @@ function Scene({ kind, night, f }) {
   const precipCloud = (tone) => (
     <>
       {moon}
-      <Cloud f={f} x={9} y={8} s={2.1} tone={tone} />
+      <Cloud f={f} x={14} y={16} s={1.9} tone={tone} />
     </>
   );
 
@@ -256,7 +257,7 @@ function Scene({ kind, night, f }) {
           ) : (
             <Sun f={f} cx={22} cy={22} r={9} />
           )}
-          <Cloud f={f} x={18} y={25} s={1.95} tone="white" />
+          <Cloud f={f} x={20} y={26} s={1.85} tone="white" />
         </g>
       );
 
@@ -332,8 +333,8 @@ function Scene({ kind, night, f }) {
     case "mist":
       return (
         <g>
-          {night ? <Moon f={f} cx={14} cy={14} r={7} /> : null}
-          <Cloud f={f} x={11} y={8} s={1.9} tone="mist" />
+          {night ? <Moon f={f} cx={15} cy={15} r={8} /> : null}
+          <Cloud f={f} x={14} y={14} s={1.75} tone="mist" />
           {[
             [14, 50, 46],
             [20, 56, 52],
